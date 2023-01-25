@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "b8WwRVqu4x4epPdtviQubteXcH5WJSdEjs2c/lf+eZz3UuY1oEWHbKXb+2Qg86uQGpO9GC4bXATZy//kZTi8+A==",
+  "success": true,
+  "projectFilePath": "D:\\ILGPU\\Mandelbrot\\Mandelbrot.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\info\\.nuget\\packages\\ilgpu\\1.3.1\\ilgpu.1.3.1.nupkg.sha512",
+    "C:\\Users\\info\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\info\\.nuget\\packages\\sixlabors.imagesharp\\2.1.3\\sixlabors.imagesharp.2.1.3.nupkg.sha512",
+    "C:\\Users\\info\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
+    "C:\\Users\\info\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\info\\.nuget\\packages\\system.reflection.metadata\\6.0.1\\system.reflection.metadata.6.0.1.nupkg.sha512",
+    "C:\\Users\\info\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\info\\.nuget\\packages\\system.text.encoding.codepages\\5.0.0\\system.text.encoding.codepages.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

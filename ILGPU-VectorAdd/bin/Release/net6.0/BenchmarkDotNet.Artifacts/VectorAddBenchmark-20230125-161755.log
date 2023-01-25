@@ -1,0 +1,119 @@
+// Validating benchmarks:
+// ***** BenchmarkRunner: Start   *****
+// ***** Found 2 benchmark(s) in total *****
+// ***** Building 1 exe(s) in Parallel: Start   *****
+// start dotnet  restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\ILGPU\ILGPU-VectorAdd\bin\Release\net6.0\99ed9ea9-e865-4331-a431-639e1dfc0683
+// command took 0.99s and exited with 0
+// start dotnet  build -c Release --no-restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\ILGPU\ILGPU-VectorAdd\bin\Release\net6.0\99ed9ea9-e865-4331-a431-639e1dfc0683
+// command took 13.95s and exited with 1
+// start dotnet  build -c Release --no-restore --no-dependencies /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\ILGPU\ILGPU-VectorAdd\bin\Release\net6.0\99ed9ea9-e865-4331-a431-639e1dfc0683
+// command took 2.04s and exited with 0
+// ***** Done, took 00:00:17 (17.11 sec)   *****
+// Found 2 benchmarks:
+//   VectorAddBenchmark.AddOnGPU: DefaultJob
+//   VectorAddBenchmark.AddOnCPU: DefaultJob
+
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: VectorAddBenchmark.AddOnGPU: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 99ed9ea9-e865-4331-a431-639e1dfc0683.dll --anonymousPipes 2464 2420 --benchmarkName VectorAddBenchmark.AddOnGPU --job Default --benchmarkId 0 in D:\ILGPU\ILGPU-VectorAdd\bin\Release\net6.0\99ed9ea9-e865-4331-a431-639e1dfc0683\bin\Release\net6.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 6.0.13 (6.0.1322.58009), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 175300.00 ns, 175.3000 us/op
+WorkloadJitting  1: 1 op, 449785000.00 ns, 449.7850 ms/op
+
+OverheadJitting  2: 1 op, 200.00 ns, 200.0000 ns/op
+WorkloadJitting  2: 1 op, 123529700.00 ns, 123.5297 ms/op
+
+WorkloadPilot    1: 2 op, 258667000.00 ns, 129.3335 ms/op
+WorkloadPilot    2: 3 op, 396641800.00 ns, 132.2139 ms/op
+WorkloadPilot    3: 4 op, 488090600.00 ns, 122.0226 ms/op
+WorkloadPilot    4: 5 op, 631576400.00 ns, 126.3153 ms/op
+
+WorkloadWarmup   1: 5 op, 593126000.00 ns, 118.6252 ms/op
+WorkloadWarmup   2: 5 op, 604582800.00 ns, 120.9166 ms/op
+WorkloadWarmup   3: 5 op, 613848700.00 ns, 122.7697 ms/op
+WorkloadWarmup   4: 5 op, 631084600.00 ns, 126.2169 ms/op
+WorkloadWarmup   5: 5 op, 624202100.00 ns, 124.8404 ms/op
+WorkloadWarmup   6: 5 op, 635145800.00 ns, 127.0292 ms/op
+WorkloadWarmup   7: 5 op, 611976300.00 ns, 122.3953 ms/op
+
+// BeforeActualRun
+WorkloadActual   1: 5 op, 619708200.00 ns, 123.9416 ms/op
+WorkloadActual   2: 5 op, 612335800.00 ns, 122.4672 ms/op
+WorkloadActual   3: 5 op, 598975200.00 ns, 119.7950 ms/op
+WorkloadActual   4: 5 op, 620097800.00 ns, 124.0196 ms/op
+WorkloadActual   5: 5 op, 608388300.00 ns, 121.6777 ms/op
+WorkloadActual   6: 5 op, 594866500.00 ns, 118.9733 ms/op
+WorkloadActual   7: 5 op, 627781500.00 ns, 125.5563 ms/op
+WorkloadActual   8: 5 op, 629534500.00 ns, 125.9069 ms/op
+WorkloadActual   9: 5 op, 613373400.00 ns, 122.6747 ms/op
+WorkloadActual  10: 5 op, 620292000.00 ns, 124.0584 ms/op
+WorkloadActual  11: 5 op, 609327100.00 ns, 121.8654 ms/op
+WorkloadActual  12: 5 op, 628311600.00 ns, 125.6623 ms/op
+WorkloadActual  13: 5 op, 612003200.00 ns, 122.4006 ms/op
+WorkloadActual  14: 5 op, 639856100.00 ns, 127.9712 ms/op
+WorkloadActual  15: 5 op, 634119100.00 ns, 126.8238 ms/op
+WorkloadActual  16: 5 op, 617553000.00 ns, 123.5106 ms/op
+WorkloadActual  17: 5 op, 622510000.00 ns, 124.5020 ms/op
+
+// AfterActualRun
+WorkloadResult   1: 5 op, 619708200.00 ns, 123.9416 ms/op
+WorkloadResult   2: 5 op, 612335800.00 ns, 122.4672 ms/op
+WorkloadResult   3: 5 op, 598975200.00 ns, 119.7950 ms/op
+WorkloadResult   4: 5 op, 620097800.00 ns, 124.0196 ms/op
+WorkloadResult   5: 5 op, 608388300.00 ns, 121.6777 ms/op
+WorkloadResult   6: 5 op, 594866500.00 ns, 118.9733 ms/op
+WorkloadResult   7: 5 op, 627781500.00 ns, 125.5563 ms/op
+WorkloadResult   8: 5 op, 629534500.00 ns, 125.9069 ms/op
+WorkloadResult   9: 5 op, 613373400.00 ns, 122.6747 ms/op
+WorkloadResult  10: 5 op, 620292000.00 ns, 124.0584 ms/op
+WorkloadResult  11: 5 op, 609327100.00 ns, 121.8654 ms/op
+WorkloadResult  12: 5 op, 628311600.00 ns, 125.6623 ms/op
+WorkloadResult  13: 5 op, 612003200.00 ns, 122.4006 ms/op
+WorkloadResult  14: 5 op, 639856100.00 ns, 127.9712 ms/op
+WorkloadResult  15: 5 op, 634119100.00 ns, 126.8238 ms/op
+WorkloadResult  16: 5 op, 617553000.00 ns, 123.5106 ms/op
+WorkloadResult  17: 5 op, 622510000.00 ns, 124.5020 ms/op
+
+// AfterAll
+// Benchmark Process 51012 has exited with code 0.
+
+Mean = 123.636 ms, StdErr = 0.576 ms (0.47%), N = 17, StdDev = 2.377 ms
+Min = 118.973 ms, Q1 = 122.401 ms, Median = 123.942 ms, Q3 = 125.556 ms, Max = 127.971 ms
+IQR = 3.156 ms, LowerFence = 117.667 ms, UpperFence = 130.290 ms
+ConfidenceInterval = [121.321 ms; 125.950 ms] (CI 99.9%), Margin = 2.314 ms (1.87% of Mean)
+Skewness = -0.15, Kurtosis = 2.28, MValue = 2
+
+// ** Remained 1 (50.0%) benchmark(s) to run. Estimated finish 2023-01-25 16:18 (0h 0m from now) **
+Setup power plan (GUID: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c FriendlyName: High performance)
+// **************************
+// Benchmark: VectorAddBenchmark.AddOnCPU: DefaultJob
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet 99ed9ea9-e865-4331-a431-639e1dfc0683.dll --anonymousPipes 2476 2544 --benchmarkName VectorAddBenchmark.AddOnCPU --job Default --benchmarkId 1 in D:\ILGPU\ILGPU-VectorAdd\bin\Release\net6.0\99ed9ea9-e865-4331-a431-639e1dfc0683\bin\Release\net6.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 6.0.13 (6.0.1322.58009), X64 RyuJIT AVX2
+// GC=Concurrent Workstation
+// HardwareIntrinsics=AVX2,AES,BMI1,BMI2,FMA,LZCNT,PCLMUL,POPCNT VectorSize=256
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 165400.00 ns, 165.4000 us/op
+WorkloadJitting  1: 1 op, 365405500.00 ns, 365.4055 ms/op
+
+OverheadJitting  2: 1 op, 200.00 ns, 200.0000 ns/op
+WorkloadJitting  2: 1 op, 133146900.00 ns, 133.1469 ms/op
+
+WorkloadPilot    1: 2 op, 248440400.00 ns, 124.2202 ms/op
+WorkloadPilot    2: 3 op, 306341400.00 ns, 102.1138 ms/op
+WorkloadPilot    3: 4 op, 397524200.00 ns, 99.3811 ms/op

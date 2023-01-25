@@ -1,0 +1,7 @@
+// Validating benchmarks:
+// ***** BenchmarkRunner: Start   *****
+// ***** Found 2 benchmark(s) in total *****
+// ***** Building 1 exe(s) in Parallel: Start   *****
+// start dotnet  restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\ILGPU\ILGPU-VectorAdd\bin\Release\net6.0\226362c7-b55f-49a9-b23a-bf1485a79cc7
+// command took 0.93s and exited with 0
+// start dotnet  build -c Release --no-restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\ILGPU\ILGPU-VectorAdd\bin\Release\net6.0\226362c7-b55f-49a9-b23a-bf1485a79cc7

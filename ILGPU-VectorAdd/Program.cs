@@ -1,5 +1,6 @@
 ﻿
 
+using System.Diagnostics;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using ILGPU;
@@ -10,12 +11,13 @@ using ILGPU.Runtime.Cuda;
 public class ILGPUVectorAdd
 {
     static readonly Random LocalRandom = new Random();
-    private const int ArrayLength = 256;
+    private const int ArrayLength = 1000000;
     private const int MaxRandomValue = Int16.MaxValue;
+    private const int PrintLines = 10;
 
     static void VectorAdd(Index1D index, ArrayView<int> a, ArrayView<int> b, ArrayView<int> c)
     {
-        c[index] = a[index] + b[index];
+        c[index] = a[index] * b[index];
     }
 
 
@@ -39,8 +41,11 @@ public class ILGPUVectorAdd
 
         //Initializing Context, Device and generating Accelerator
         using Context context = Context.CreateDefault();
-        var device = context.GetCudaDevice(0);
-        using var accelerator = device.CreateCudaAccelerator(context);
+        long cpuTicks;
+        long gpuTicks;
+        
+        var gpuDevice = context.GetCudaDevice(0);
+
 
         //Preparing Test-Data
         var aArray = new int[ArrayLength];
@@ -52,31 +57,96 @@ public class ILGPUVectorAdd
         InitializeArray(bArray);
         InitializeArray(cArray, false);
 
-        //Allocating Memory on Accelerator
-        var a = accelerator.Allocate1D<int>(aArray);
-        var b = accelerator.Allocate1D<int>(bArray);
-        var c = accelerator.Allocate1D<int>(cArray);
-
-
-        //Loading and Compiling Kernels
-        Action<Index1D, ArrayView<int>, ArrayView<int>, ArrayView<int>> vectorAddKernel =
-            accelerator.LoadAutoGroupedStreamKernel<Index1D, ArrayView<int>, ArrayView<int>, ArrayView<int>>(VectorAdd);
-
-        vectorAddKernel((int)c.Length, a.View, b.View, c.View);
-
-        // wait for the accelerator to be finished with whatever it's doing
-        // in this case it just waits for the kernel to finish.
-        accelerator.Synchronize();
-
-        // moved output data from the GPU to the CPU for output to console
-        int[] hostOutput = c.GetAsArray1D();
-
-        for (int i = 0; i < hostOutput.Length; i++)
+        using (var accelerator = gpuDevice.CreateCudaAccelerator(context))
         {
-            Console.WriteLine($"A: {aArray[i]} B: {bArray[i]} Result: {hostOutput[i]}");
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            //Allocating Memory on Accelerator
+            var a = accelerator.Allocate1D<int>(aArray);
+            var b = accelerator.Allocate1D<int>(bArray);
+            var c = accelerator.Allocate1D<int>(cArray);
+
+
+            //Loading and Compiling Kernels
+            Action<Index1D, ArrayView<int>, ArrayView<int>, ArrayView<int>> vectorAddKernel =
+                accelerator.LoadAutoGroupedStreamKernel<Index1D, ArrayView<int>, ArrayView<int>, ArrayView<int>>(VectorAdd);
+
+            vectorAddKernel((int)c.Length, a.View, b.View, c.View);
+
+            //Synchronizing
+            accelerator.Synchronize();
+
+            stopWatch.Stop();
+
+            var gpuTime = stopWatch.Elapsed;
+            gpuTicks = stopWatch.ElapsedTicks;
+
+
+            Console.WriteLine($"GPU Run took {gpuTime.Seconds}S {gpuTime.Milliseconds}MS {gpuTime.Ticks}Ticks");
+
+            stopWatch.Reset();
+
+            int[] hostOutput = c.GetAsArray1D();
+
+            for (int i = 0; i < PrintLines; i++)
+            {
+                Console.WriteLine($"A: {aArray[i], 9} B: {bArray[i], 9} Result: {hostOutput[i], 12}");
+            }
         }
 
-        var summary = BenchmarkRunner.Run(typeof(VectorAddBenchmark));
+
+        var cpuDevice = context.GetCPUDevice(0);
+
+        using (var accelerator = cpuDevice.CreateCPUAccelerator(context))
+        {
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            //Allocating Memory on Accelerator
+            var a = accelerator.Allocate1D<int>(aArray);
+            var b = accelerator.Allocate1D<int>(bArray);
+            var c = accelerator.Allocate1D<int>(cArray);
+
+
+            //Loading and Compiling Kernels
+            Action<Index1D, ArrayView<int>, ArrayView<int>, ArrayView<int>> vectorAddKernel =
+                accelerator.LoadAutoGroupedStreamKernel<Index1D, ArrayView<int>, ArrayView<int>, ArrayView<int>>(VectorAdd);
+
+            vectorAddKernel((int)c.Length, a.View, b.View, c.View);
+
+            //Synchronizing
+            accelerator.Synchronize();
+
+            stopWatch.Stop();
+
+            var cpuTime = stopWatch.Elapsed;
+            cpuTicks = stopWatch.ElapsedTicks;
+
+            Console.WriteLine($"CPU Run took {cpuTime.Seconds}S {cpuTime.Milliseconds}MS {cpuTime.Ticks}Ticks");
+
+            stopWatch.Reset();
+
+            int[] hostOutput = c.GetAsArray1D();
+
+            for (int i = 0; i < PrintLines; i++)
+            {
+                Console.WriteLine($"A: {aArray[i],9} B: {bArray[i],9} Result: {hostOutput[i], 12}");
+            }
+        }
+
+        // moved output data from the GPU to the CPU for output to console
+
+        if (gpuTicks < cpuTicks)
+        {
+            Console.WriteLine($"GPU was faster than CPU");
+        }
+        else
+        {
+            Console.WriteLine($"CPU was faster than GPU");
+        }
+
+        //var summary = BenchmarkRunner.Run(typeof(VectorAddBenchmark));
     }
 }
 
@@ -84,7 +154,7 @@ public class VectorAddBenchmark
 {
 
     static readonly Random LocalRandom = new Random();
-    private const int ArrayLength = 256000;
+    private const int ArrayLength = 1000000;
     private const int MaxRandomValue = Int16.MaxValue;
 
     private Context Context { get; set; }
@@ -102,7 +172,7 @@ public class VectorAddBenchmark
 
     static void VectorAddKernel(Index1D index, ArrayView<int> a, ArrayView<int> b, ArrayView<int> c)
     {
-        c[index] = a[index] + b[index];
+        c[index] = a[index] * b[index];
     }
 
 
@@ -144,28 +214,6 @@ public class VectorAddBenchmark
     }
 
     [Benchmark()]
-    public void AddOnCPU()
-    {
-        using (var accelerator = CpuD.CreateCPUAccelerator(Context))
-        {
-            var a = accelerator.Allocate1D<int>(AData);
-            var b = accelerator.Allocate1D<int>(BData);
-            var c = accelerator.Allocate1D<int>(CData);
-
-
-            //Loading and Compiling Kernels
-            Action<Index1D, ArrayView<int>, ArrayView<int>, ArrayView<int>> vectorAddKernel =
-                accelerator.LoadAutoGroupedStreamKernel<Index1D, ArrayView<int>, ArrayView<int>, ArrayView<int>>(VectorAddKernel);
-
-            vectorAddKernel((int)c.Length, a.View, b.View, c.View);
-
-            // wait for the accelerator to be finished with whatever it's doing
-            // in this case it just waits for the kernel to finish.
-            accelerator.Synchronize();
-        }
-    }
-
-    [Benchmark()]
     public void AddOnGPU()
     {
         using (var accelerator = CudaD.CreateCudaAccelerator(Context))
@@ -181,8 +229,28 @@ public class VectorAddBenchmark
 
             vectorAddKernel((int)c.Length, a.View, b.View, c.View);
 
-            // wait for the accelerator to be finished with whatever it's doing
-            // in this case it just waits for the kernel to finish.
+            //Synchronizing
+            accelerator.Synchronize();
+        }
+    }
+
+    [Benchmark()]
+    public void AddOnCPU()
+    {
+        using (var accelerator = CpuD.CreateCPUAccelerator(Context))
+        {
+            var a = accelerator.Allocate1D<int>(AData);
+            var b = accelerator.Allocate1D<int>(BData);
+            var c = accelerator.Allocate1D<int>(CData);
+
+
+            //Loading and Compiling Kernels
+            Action<Index1D, ArrayView<int>, ArrayView<int>, ArrayView<int>> vectorAddKernel =
+                accelerator.LoadAutoGroupedStreamKernel<Index1D, ArrayView<int>, ArrayView<int>, ArrayView<int>>(VectorAddKernel);
+
+            vectorAddKernel((int)c.Length, a.View, b.View, c.View);
+
+            //Synchronizing
             accelerator.Synchronize();
         }
     }

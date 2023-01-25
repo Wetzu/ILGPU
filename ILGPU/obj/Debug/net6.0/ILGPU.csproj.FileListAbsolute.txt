@@ -1,0 +1,5 @@
+D:\ILGPU\ILGPU\obj\Debug\net6.0\ILGPU.csproj.AssemblyReference.cache
+D:\ILGPU\ILGPU\obj\Debug\net6.0\ILGPU.GeneratedMSBuildEditorConfig.editorconfig
+D:\ILGPU\ILGPU\obj\Debug\net6.0\ILGPU.AssemblyInfoInputs.cache
+D:\ILGPU\ILGPU\obj\Debug\net6.0\ILGPU.AssemblyInfo.cs
+D:\ILGPU\ILGPU\obj\Debug\net6.0\ILGPU.csproj.CoreCompileInputs.cache

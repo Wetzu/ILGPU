@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "9Umme2g6e2yQtD8Mi5fMQJL06moJRDzEXxybctp2ib+le/bHjcoJDtRSM7WlVVvYinhlKKqhGYWbn0HSgixZ1Q==",
+  "dgSpecHash": "X8cOddDuIeqm6TSj5t8WtuzGNgT9XURuVgwqfl3Nhqdd0ol6VMTz8XLNrWHt5N3lSjqyOMEu4mjV6bcQBh7NIg==",
   "success": true,
-  "projectFilePath": "D:\\ILGPU\\ILGPU-Console\\ILGPU-DeviceInfo.csproj",
+  "projectFilePath": "/Users/dev/ILGPU/ILGPU-Console/ILGPU-DeviceInfo.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\info\\.nuget\\packages\\ilgpu\\1.3.1\\ilgpu.1.3.1.nupkg.sha512",
-    "C:\\Users\\info\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
-    "C:\\Users\\info\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
-    "C:\\Users\\info\\.nuget\\packages\\system.reflection.metadata\\6.0.1\\system.reflection.metadata.6.0.1.nupkg.sha512",
-    "C:\\Users\\info\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+    "/Users/dev/.nuget/packages/ilgpu/1.3.1/ilgpu.1.3.1.nupkg.sha512",
+    "/Users/dev/.nuget/packages/system.collections.immutable/6.0.0/system.collections.immutable.6.0.0.nupkg.sha512",
+    "/Users/dev/.nuget/packages/system.memory/4.5.5/system.memory.4.5.5.nupkg.sha512",
+    "/Users/dev/.nuget/packages/system.reflection.metadata/6.0.1/system.reflection.metadata.6.0.1.nupkg.sha512",
+    "/Users/dev/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

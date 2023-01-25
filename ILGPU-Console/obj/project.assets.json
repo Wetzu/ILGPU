@@ -194,32 +194,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\info\\.nuget\\packages\\": {},
-    "B:\\Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/dev/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ILGPU\\ILGPU-Console\\ILGPU-DeviceInfo.csproj",
+      "projectUniqueName": "/Users/dev/ILGPU/ILGPU-Console/ILGPU-DeviceInfo.csproj",
       "projectName": "ILGPU-DeviceInfo",
-      "projectPath": "D:\\ILGPU\\ILGPU-Console\\ILGPU-DeviceInfo.csproj",
-      "packagesPath": "C:\\Users\\info\\.nuget\\packages\\",
-      "outputPath": "D:\\ILGPU\\ILGPU-Console\\obj\\",
+      "projectPath": "/Users/dev/ILGPU/ILGPU-Console/ILGPU-DeviceInfo.csproj",
+      "packagesPath": "/Users/dev/.nuget/packages/",
+      "outputPath": "/Users/dev/ILGPU/ILGPU-Console/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "B:\\Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\info\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/dev/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\local-nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -249,8 +241,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -259,7 +250,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.300/RuntimeIdentifierGraph.json"
       }
     }
   }

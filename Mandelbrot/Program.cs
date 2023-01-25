@@ -6,10 +6,14 @@ using SixLabors.ImageSharp.PixelFormats;
 
 public class Mandelbrot
 {
+
+    const int xSize = 6400;
+    const int ySize = 4800;
+
     static void Calculate(Index2D index, ArrayView2D<byte, Stride2D.DenseX> output, float xMin, float xMax, float yMin, float yMax)
     {
-        float x0 = xMin + index.X * (xMax - xMin) / 800;
-        float y0 = yMin + index.Y * (yMax - yMin) / 600;
+        float x0 = xMin + index.X * (xMax - xMin) / xSize;
+        float y0 = yMin + index.Y * (yMax - yMin) / ySize;
         float x = 0;
         float y = 0;
         int iteration = 0;
@@ -33,30 +37,30 @@ public class Mandelbrot
 
     public static void Main()
     {
-        var image = new Image<Rgba32>(800, 600);
+        var image = new Image<Rgba32>(xSize, ySize);
 
         using Context context = Context.CreateDefault();
         var device = context.GetPreferredDevice(false);
 
-        byte[,] imageData = new byte[800,600];
+        byte[,] imageData = new byte[xSize,ySize];
 
         using (var accelerator = device.CreateAccelerator(context))
         {
-            var intensity = accelerator.Allocate2DDenseX<byte>(new(800, 600));
+            var intensity = accelerator.Allocate2DDenseX<byte>(new(xSize, ySize));
 
             var kernel =
                 accelerator
                     .LoadAutoGroupedKernel<Index2D, ArrayView2D<byte, Stride2D.DenseX>, float, float, float, float>(
                         Calculate);
 
-            kernel(accelerator.DefaultStream, new Index2D(800, 600), intensity.View, -2, 1, -1, 1);
+            kernel(accelerator.DefaultStream, new Index2D(xSize, ySize), intensity.View, -2, 1, -1, 1);
 
             imageData = intensity.GetAsArray2D();
         }
 
-        for (int x = 0; x < 800; x++)
+        for (int x = 0; x < image.Width; x++)
         {
-            for (int y = 0; y < 600; y++)
+            for (int y = 0; y < image.Height; y++)
             {
                 image[x, y] = new Rgba32(imageData[x, y], 0, 0);
             }
